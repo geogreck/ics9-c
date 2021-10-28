@@ -5,7 +5,7 @@
 
 int primediv(int x)
 {
-    int* m = calloc((size_t)x , sizeof(int));
+    int* m = calloc((size_t)x, sizeof(int));
     size_t i = 2;
 
     while (i < sqrt(x))
@@ -24,11 +24,13 @@ int primediv(int x)
     {
         if (!m[i])
         {
+            free(m);
             return (int)i;
         }
     }
 
-    return 10;
+    free(m);
+    return 0;
 }
 
 int main()
