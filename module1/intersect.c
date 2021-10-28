@@ -1,41 +1,29 @@
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
 
-long long max(long long a, long long b)
+int set_input()
 {
-    if (a > b)
-        return a;
-    return b;
-}
-
-int main()
-{
-    int n;
-    long long a, b, a1, b1;
-    a1 = LLONG_MIN;
-    b1 = LLONG_MIN + 1;
+    int n, k, a = 0;
     scanf("%d", &n);
 
     for (int i = 0; i < n; i++)
     {
-        scanf("%lld%lld", &a, &b);
-        if (a <= b1 + 1)
-        {
-            b1 = max(b, b1);
-        }
-        else
-        {
-            if (a1 != LLONG_MIN)
-            {
-                printf("%lld %lld\n", a1, b1);
-            }
-            a1 = a;
-            b1 = b;
-        }
+        scanf("%d", &k);
+        a |= (1 << k);
     }
-    printf("%lld %lld\n", a1, b1);    
 
-    return 0;
+    return a;
+}
+
+int main()
+{
+    int a = set_input();
+    int b = set_input();
+
+    for (int i = 0; i < 32; i++)
+    {
+        if ((a & b) & (1 << i))
+            printf("%d ", i);
+    }
+
+    printf("\n");
 }
