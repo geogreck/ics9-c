@@ -22,7 +22,7 @@ ll find_fib(ll x, int* n)
 void print_arr(int* m)
 {
     int flag = 0;
-    for (int i = 100; i >= 0; i--)
+    for (int i = 100; i > 0; i--)
     {
         if (m[i] || flag)
         {
@@ -30,6 +30,7 @@ void print_arr(int* m)
             printf("%d", m[i]);
         }
     }
+    printf("\n");
 }
 
 int main()
