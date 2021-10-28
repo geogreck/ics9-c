@@ -32,7 +32,7 @@ int main()
 
     scanf("%d%d", &n, &k);
 
-    int* arr = malloc(k * sizeof(int));
+    int* arr = malloc((size_t)k * sizeof(int));
 
     for (int i = 0; i < k; i++)
     {
@@ -56,7 +56,8 @@ int main()
 
     free(arr);
 
-    printf("%d\n", sum_start);
+    printf("%lld\n", max_sum);
+    //printf("%d\n", sum_start);
 
     return 0;
 }
