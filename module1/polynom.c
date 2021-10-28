@@ -1,9 +1,9 @@
 
 #include <stdio.h>
 
-long my_pow(long int x, unsigned int n)
+long my_pow(long x, long n)
 {
-    long int a = x, p = 1;
+    long a = x, p = 1;
     while (n > 0)
     {
         if ((n & 1) != 0)
