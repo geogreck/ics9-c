@@ -39,4 +39,7 @@ int main()
     int res = count(arr, n);
 
     printf("%d\n", res);
+
+    free(arr);
+    return 0;
 }
