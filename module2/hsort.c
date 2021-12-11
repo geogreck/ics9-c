@@ -23,9 +23,9 @@ void heapify(void *base, size_t nel, size_t width, size_t i,
     size_t l = 2 * i + 1;
     size_t r = l + 1;
 
-    if (l < nel && compare(((unsigned char*)base + l * width), ((unsigned char*)base + max * width)))
+    if (l < nel && compare(*((unsigned char**)base + l), *((unsigned char**)base + max)) > 0)
         max = l;
-    if (r < nel && compare(((unsigned char*)base + r * width), ((unsigned char*)base + max * width)))
+    if (r < nel && compare(*((unsigned char**)base + r), *((unsigned char**)base + max)) > 0)
         max = l;
     if (max != i)
     {
@@ -37,22 +37,30 @@ void heapify(void *base, size_t nel, size_t width, size_t i,
 void hsort(void *base, size_t nel, size_t width,
         int (*compare)(const void *a, const void *b))
 {
-    for (int i = (int)nel / 2 - 1; i>= 0; i--)
+    for (int i = (int)nel / 2; i> 0; i--)
     {
-        heapify(base, nel, width, (size_t)i, compare);
+        heapify(base, nel, width, (size_t)i - 1, compare);
     }
 
-    for (int i = (int)nel - 1; i >= 0; i--)
+    for (int i = (int)nel - 1; i > 0; i--)
     {
         swap(base, width, 0, (size_t)i);
         heapify(base, (size_t)i, width, 0, compare);
     }
 }
 
+size_t lc_strlen(const char *s)
+{
+    size_t n = 0;
+    while (*(s + n) != 0)
+        n++;
+    return n;
+}
+
 int compare(const void *a, const void *b)
 {
-    size_t l = strlen((const char*)a);
-    size_t r = strlen((const char*)b);
+    size_t l = lc_strlen((const char*)a);   
+    size_t r = lc_strlen((const char*)b);
     if (l < r)
         return -1;
     if (l == r)
@@ -72,10 +80,6 @@ int main()
     for (size_t i = 0; i < n; i++)
     {
         scanf("%s", arr[i]);
-    }
-    for (size_t i = 0; i < n; i++)
-    {
-        printf("%s\n", arr[i]);
     }
     hsort(arr, n, sizeof(char*), compare);
     for (size_t i = 0; i < n; i++)
