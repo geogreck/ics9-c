@@ -17,6 +17,10 @@ char *concat(char **s, int n)
     }
 
     char* s_new = malloc(m * sizeof(char));
+    if (!s_new)
+    {
+        perror("malloc");
+    }
     size_t buf = 0;
     for (size_t i = 0; i < (size_t)n; i++)
     {
