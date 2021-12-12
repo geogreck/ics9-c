@@ -22,7 +22,6 @@ size_t* prefix(char* str)
             t++;
         pref[i] = t;
     }
-
     return pref;
 }
 
@@ -33,11 +32,15 @@ int is_repeatable_substr(char* str)
     strcpy(spref, str);
     char* temp = malloc(sizeof(char) * (len * 2 + 1));
     strcpy(temp, str);
-    temp = strcat(temp + 1, spref);
+    strcat(temp + 1, spref);
     if (strstr(temp, spref) != (temp + len - 1))
     {   
+        free(spref);
+        free(temp);
         return 1;
     }
+    free(spref);
+    free(temp);
     return 0;
 }
 
@@ -50,8 +53,12 @@ size_t find_repeatable_sub(char* str)
     {
         strcpy(sub, str + i);
         if (is_repeatable_substr(sub))
+        {
+            free(sub);
             return i;
+        }
     }
+    free(sub);
     return i;
 }
 
@@ -74,6 +81,7 @@ int main(int argc, char** argv)
             {   
                 printf("%lu %lu\n", pref[i], strlen(spref) / find_repeatable_sub(spref));
             }
+            free(spref);
         }
     }
     if (is_repeatable_substr(str))
