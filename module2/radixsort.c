@@ -72,7 +72,7 @@ int main()
     {
         scanf("%d", &arr[i]);
     }
-    int key_set[4] = {256, 256, 256, 256};
+    int key_set[4] = {255, 255, 255, 255};
     arr = radixsort(arr, n, sizeof(int), key_set, 4, get_key);
     for (size_t i = 0; i < n; i++)
     {
