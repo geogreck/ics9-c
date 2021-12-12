@@ -20,13 +20,13 @@ void* lc_memcpy( void* dest, const void* src, size_t count )
 void* distributionsort(void* base, size_t n, size_t width, int field, int set,
     int (*get_key)(void* base, int field))
 {
-    int* count = calloc((size_t)set, width);    
+    int* count = calloc((size_t)set, sizeof(int));    
     for (size_t i = 0; i < n; i++)
     {
         int key = get_key((char*)base + width * i, field);
         count[key]++;
     }
-    for (int i = 0; i < set; i++)
+    for (int i = 1; i < set; i++)
     {
         count[i] += count[i - 1];
     }
