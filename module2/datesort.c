@@ -33,7 +33,7 @@ void* distributionsort(void* base, size_t n, size_t width, int field, int set,
         int key = get_key((char*)base + width * (i - 1), field);
         count[key]--;
         int j = count[key];
-        memcpy(d + (size_t)j * width, (char*)base + (i - 1) * width, width);
+        lc_memcpy(d + (size_t)j * width, (char*)base + (i - 1) * width, width);
     }
     free(base);
     free(count);
