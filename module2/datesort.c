@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 void* lc_memcpy( void* dest, const void* src, size_t count )
 {
