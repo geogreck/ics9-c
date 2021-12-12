@@ -68,6 +68,7 @@ size_t* delta2(char* str)
             del2[t] = len - (i + 1);
         }
     }
+    free(suf);
     return del2;
 }
 
@@ -94,6 +95,8 @@ size_t BMSubst(char* s, size_t n, char* t, size_t* arr)
         }
         k += max(del1[(int)t[k]], del2[i]);
     }
+    free(del1);
+    free(del2);
     return j;
 }
 
@@ -112,5 +115,6 @@ int main(int argc, char** argv)
     {
         printf("%lu ", arr[i]);
     }
+    free(arr);
     return 0;
 }
