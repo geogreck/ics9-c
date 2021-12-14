@@ -26,7 +26,7 @@ void* distributionsort(void* base, size_t n, size_t width, int field, int set,
         int key = get_key((char*)base + width * i, field);
         count[key]++;
     }
-    for (int i = 0; i < set; i++)
+    for (int i = 1; i < set; i++)
     {
         count[i] += count[i - 1];
     }
