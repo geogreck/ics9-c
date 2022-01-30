@@ -33,8 +33,15 @@ int main()
         if (!flag)
             break;
     }
+    int flag2 = 1;
+    for (int i = 0; i < 8; i++)
+    {
+        flag2 = find(b[i], a);
+        if (!flag2)
+            break;
+    }
 
-    if (flag)
+    if (flag && flag2)
         printf("yes\n");
     else
         printf("no\n");

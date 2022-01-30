@@ -1,31 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-size_t strnlen ( const char *s , size_t n)
-{
-    size_t len ;
-    for ( len = 0; len < n && s[ len ]; len ++);
-    return len ;
-}
+#include <string.h>
 
 char *concat(char **s, int n)
 {
-    size_t m = 0;
+    size_t m = 1;
     for (size_t i = 0; i < (size_t)n; i++)
     {
-        m += strnlen(*(s + i), sizeof(*(s + i)));
+        m += strlen(*(s + i));
     }
-
     char* s_new = malloc(m * sizeof(char));
     size_t buf = 0;
     for (size_t i = 0; i < (size_t)n; i++)
     {
-        for (size_t j = 0; j < strnlen(*(s + i), sizeof(*(s + i))); j++)
+        for (size_t j = 0; j < strlen(*(s + i)); j++)
         {
             *(s_new + buf + j) = *(*(s + i) + j);
         }
-        buf += strnlen(*(s + i), sizeof(*(s + i)));
+        buf += strlen(*(s + i));
     }
+    s_new[buf] = 0;
     return s_new;
 }   
 
@@ -39,10 +33,10 @@ int main()
     for (size_t i = 0; i < n; i++)
     {
         *(s + i) = malloc(BUFSIZ * sizeof(char));
-        gets(*(s + i), BUFSIZ);
+        gets(*(s + i));
     }
     char* s_new = concat(s, (int)n);
-    puts(s_new);
+    printf("%s", s_new);
 
     for (size_t i = 0; i < n; i++)
     {

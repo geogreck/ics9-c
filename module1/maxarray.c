@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int compare_ints(void* a, void* b)
 {
@@ -9,29 +10,21 @@ int compare_ints(void* a, void* b)
     return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
 }
 
-int compare_chars(void* a, void* b)
-{
-    int arg1 = *(char*)a;
-    int arg2 = *(char*)b;
- 
-    return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
-}
-
 int maxarray(void *base, size_t nel, size_t width, int (*compare)(void *a, void *b))
 {
     unsigned char* max = malloc(width);
     size_t i_max = 0;
 
-    *max = *(unsigned char*)base;
+    memcpy(max, base, width);
     for (size_t i = 1; i < nel; i++)
     {
         if (compare(((unsigned char*)base + i * width), max) > 0)
         {
-            *max = *((unsigned char*)base + i * width);
+            memcpy(max, (unsigned char*)base + i * width, width);
             i_max = i;
         }
     }
-
+    free(max);
     return (int)i_max;
 }
 
@@ -41,7 +34,7 @@ int main()
     char arr_s[4] = {'a', 'b', 'v', 'd'};
 
     printf("%d\n", maxarray(arr, 10, sizeof(int), compare_ints));
-    printf("%d\n", maxarray(arr_s, 4, sizeof(char), compare_chars));
+    //printf("%d\n", maxarray(arr_s, 4, sizeof(char), compare_chars));
 
     return 0;
 }

@@ -22,7 +22,7 @@ ll find_fib(ll x, int* n)
 void print_arr(int* m)
 {
     int flag = 0;
-    for (int i = 100; i > 0; i--)
+    for (int i = 99; i > 0; i--)
     {
         if (m[i] || flag)
         {
@@ -39,13 +39,20 @@ int main()
     int n;
     scanf("%lld", &x);
 
-    int m[100] = {0};
-
+    if (!x || x == 1)
+    {
+        printf("%lld\n", x);
+        return 0;  
+    }  
+    
+    int* m = (int*)calloc(100, sizeof(int));
 
    while (x)
     {
-        if (x == 1)
-            m[0] = 1;
+        if (x == 1){
+            m[1] = 1;
+            x--;
+        }
         else
         {
             f = find_fib(x, &n);
@@ -55,6 +62,6 @@ int main()
     }
 
     print_arr(m);
-
+    free(m);
     return 0;
 }

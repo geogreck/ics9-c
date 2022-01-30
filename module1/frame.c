@@ -17,8 +17,8 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    int height = atoi(*(argv + 1));
-    int width = atoi(*(argv + 2));
+    size_t height = (size_t)atoi(*(argv + 1));
+    size_t width = (size_t)atoi(*(argv + 2));
     char* text = (*(argv + 3));
     size_t len = lc_strlen(text);
     if (width - 2 < len)
@@ -41,12 +41,12 @@ int main(int argc, char **argv)
                 printf(" ");
             }
         }else{
-            for (size_t j = 1; j < (width - len)/ 2 + 1; j++)
+            for (size_t j = 1; j < (width - len)/ 2; j++)
             {
                 printf(" ");
             }
             printf("%s", text);
-            for (size_t j = 1; j < (width - len)/ 2; j++)
+            for (size_t j = 1; j < (width - len + 1)/ 2; j++)
             {
                 printf(" ");
             }

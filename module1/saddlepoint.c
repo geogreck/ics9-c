@@ -8,41 +8,42 @@ int main()
     int a;
     size_t m, n;
     scanf("%lu%lu", &m, &n);
-    size_t max_elements_index[n];
-    size_t min_elements_index[m];
-    int min_elements[m];
-
-    for (size_t j = 0; j < m; ++j)
-    {
+    int min_elements[n];
+    for (size_t j = 0; j < n; ++j){
         min_elements[j] = INT_MAX;
     }
-
-    for (size_t i = 0; i < m; i++)
-    {
-        int max = INT_MIN;
-        size_t max_j = 11;
+    int ans = INT_MIN;
+    size_t ans_i = 11;
+    size_t ans_j = 10;
+    int max = ans;
+    size_t max_ind = 0;
+    for (size_t i = 0; i < m; i++){
+        max = INT_MIN;
         for (size_t j = 0; j < n; j++)
         {
             scanf("%d", &a);
-            if (a > max)
-            {
+            if (a < min_elements[j]){
+                if (ans == min_elements[j]){
+                    ans = INT_MIN;
+                }
+                min_elements[j] = a;;
+            }
+            if (a > max){
                 max = a;
-                max_j = j;
-            }
-            if (a < min_elements[j])
-            {
-                min_elements[j] = a;
-                min_elements_index[j] = i;
+                max_ind = j;
             }
         }
-        max_elements_index[i] = max_j;
-    }
-    for (size_t i = 0; i < n; ++i) {
-        if (min_elements_index[max_elements_index[i]] == i)
-        {
-            printf("%lu %lu\n", i, max_elements_index[i]);
-            return 0;
+        if (max == min_elements[max_ind]){
+            ans = max;
+            ans_i = i;
+            ans_j = max_ind;
+
         }
     }
-    printf("none\n");
+    if (ans == INT_MIN){
+        printf("none\n");
+        return 0;
+    }
+    printf("%lu %lu\n", ans_i, ans_j);
+    return 0;    
 }
