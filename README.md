@@ -1,1 +1,1 @@
-# ic9-c
+# ics9-c Algorithms and data structures course
