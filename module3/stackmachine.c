@@ -23,8 +23,6 @@ void stack_push(stack_t* s, int new_data){
 }
 
 int stack_pop(stack_t* s){
-    if (s->top == 0)
-        perror("emptiness and loneliness");
     s->top--;
     return s->data[s->top];
 }
@@ -114,8 +112,8 @@ int main(){
         case 10:
             a = stack_pop(&stack);
             b = stack_pop(&stack);
-            stack_push(&stack, b);
             stack_push(&stack, a);
+            stack_push(&stack, b);
             break;
         default: 
             printf("unknown command\n");

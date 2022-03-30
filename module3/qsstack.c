@@ -28,8 +28,6 @@ void stack_push(stack_t* s, task_t new_data){
 }
 
 task_t stack_pop(stack_t* s){
-    if (s->top == 0)
-        perror("emptiness and loneliness");
     s->top--;
     return s->data[s->top];
 }
@@ -59,7 +57,7 @@ size_t partition(long* arr, size_t l, size_t r)
 
 void quicksort(long* arr, size_t n){
     stack_t tasks;
-    make_stack(&tasks, n);
+    make_stack(&tasks, 2 * n);
     task_t first_task;
     first_task.low = 0;
     first_task.high = n;
@@ -83,6 +81,12 @@ void quicksort(long* arr, size_t n){
 int main(){
     size_t n;
     scanf("%lu", &n);
+    if (n == 1){
+        int x;
+        scanf("%d", &x);
+        printf("%d\n", x);
+        return 0;
+    }
     long* arr = (long*)malloc(n * sizeof(long));
     for (size_t i = 0; i < n; i++){
         scanf("%ld", arr + i);

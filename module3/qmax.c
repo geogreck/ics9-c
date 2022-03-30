@@ -140,6 +140,7 @@ int main(){
             break;
         }
     }
-
+    free(stack.data);
+    free(stack.max);
     return 0;
 }

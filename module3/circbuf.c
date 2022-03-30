@@ -83,5 +83,6 @@ int main(){
             break;
         }
     }
+    free(CircleBuff.data);
     return 0;
 }
