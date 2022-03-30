@@ -16,9 +16,10 @@ void insertionsort(int* arr, size_t n)
 {
     for (size_t i = 1; i < n; i++)
     {
+        int elem_abs = abs(arr[i]);
         int elem = arr[i];
         size_t loc = i;
-        while (loc > 0 && arr[loc - 1] > elem)
+        while (loc > 0 && abs(arr[loc - 1]) > elem_abs)
         {
             arr[loc] = arr[loc - 1];
             loc--;
@@ -36,7 +37,7 @@ void merge(int* arr, size_t l, size_t mid, size_t r)
     size_t h;
     for (h = 0; h < (r - l + 1); h++)
     {
-        if ((j <= r) &&  (i == mid + 1 || compare(arr[i], arr[j])))
+        if ((j <= r) &&  (i == mid + 1 || compare(arr[i], arr[j]) >  0))
         {
             buf[h] = arr[j];
             j++;
@@ -45,15 +46,16 @@ void merge(int* arr, size_t l, size_t mid, size_t r)
             i++;
         }
     }
-    for (size_t k = 0; k < h; k++)
+    for (size_t k = l; k <= r; k++)
     {
-        arr[l + k] = buf[k];
+        arr[k] = buf[k - l];
     }
+    free(buf);
 }
 
 void mergesort_rec(int* arr, size_t l ,size_t r)
 {
-    if ((r - l) > 5)
+    if ((r - l ) > 5)
     {
         size_t mid = (l + r) / 2;
         mergesort_rec(arr, l, mid);
@@ -83,4 +85,5 @@ int main()
     {
         printf("%d ", arr[i]);
     }
+    free(arr);
 }

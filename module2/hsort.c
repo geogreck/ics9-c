@@ -2,18 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void swap(void* base, size_t width, size_t a, size_t b)
+void swap(void *a, void *b, size_t width)
 {
-    unsigned char* ptr_a = (unsigned char*)base + a * width;
-    unsigned char* ptr_b = (unsigned char*)base + b * width;
-    for (size_t i = 0; i < width; i++)
-    {
-        unsigned char t = *ptr_a;
-        *ptr_a = *ptr_b;
-        *ptr_b = t;
-        ptr_a++;
-        ptr_b++;
-    }
+	void *temp = malloc(width);
+	memcpy(temp, a, width);
+	memcpy(a, b, width);
+	memcpy(b, temp, width);
+	free(temp);
 }
 
 void heapify(void *base, size_t nel, size_t width, size_t i,
@@ -23,13 +18,13 @@ void heapify(void *base, size_t nel, size_t width, size_t i,
     size_t l = 2 * i + 1;
     size_t r = l + 1;
 
-    if (l < nel && compare(*((unsigned char**)base + l), *((unsigned char**)base + max)) > 0)
+    if (l < nel && compare((unsigned char*)base + l * width, (unsigned char*)base + max * width) > 0)
         max = l;
-    if (r < nel && compare(*((unsigned char**)base + r), *((unsigned char**)base + max)) > 0)
-        max = l;
+    if (r < nel && compare((unsigned char*)base + r * width, (unsigned char*)base + max * width) > 0)
+        max = r;
     if (max != i)
     {
-        swap(base, width, i, max);
+        swap((char*)base + i * width, (char*)base + max * width, width);
         heapify(base, nel, width, max, compare);
     }
 }
@@ -44,7 +39,7 @@ void hsort(void *base, size_t nel, size_t width,
 
     for (int i = (int)nel - 1; i > 0; i--)
     {
-        swap(base, width, 0, (size_t)i);
+        swap(base, (char*)base + (size_t)i * width, width);
         heapify(base, (size_t)i, width, 0, compare);
     }
 }
@@ -57,15 +52,10 @@ size_t lc_strlen(const char *s)
     return n;
 }
 
-int compare(const void *a, const void *b)
+static int compare_char(const void *va, const void *vb)
 {
-    size_t l = lc_strlen((const char*)a);   
-    size_t r = lc_strlen((const char*)b);
-    if (l < r)
-        return -1;
-    if (l == r)
-        return 0;
-    return 1;
+        const char *a = va, *b = vb;
+        return *a - *b;
 }
 
 int main()
@@ -81,7 +71,7 @@ int main()
     {
         scanf("%s", arr[i]);
     }
-    hsort(arr, n, sizeof(char*), compare);
+    hsort(arr, n, sizeof(char*), compare_char);
     for (size_t i = 0; i < n; i++)
     {
         printf("%s\n", arr[i]);

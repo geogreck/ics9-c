@@ -31,8 +31,8 @@ int is_repeatable_substr(char* str)
     char* spref = malloc(sizeof(char) *(len + 1));
     strcpy(spref, str);
     char* temp = malloc(sizeof(char) * (len * 2 + 1));
-    strcpy(temp, str);
-    strcat(temp + 1, spref);
+    strcpy(temp, str + 1);
+    strcat(temp, spref);
     if (strstr(temp, spref) != (temp + len - 1))
     {   
         free(spref);
@@ -77,6 +77,7 @@ int main(int argc, char** argv)
         {
             char* spref = malloc(sizeof(char) * (pref[i] + 1));
             strncpy(spref, str, pref[i]);
+            spref[pref[i]] = 0;
             if (is_repeatable_substr(spref))
             {   
                 printf("%lu %lu\n", pref[i], strlen(spref) / find_repeatable_sub(spref));

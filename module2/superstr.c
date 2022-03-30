@@ -10,13 +10,13 @@ unsigned char used[10];
 
 char *lc_strcpy(char *restrict dest, const char *restrict src)
 {
-    size_t n = 0;
-    while (*(src + n))
+    size_t n1 = 0;
+    while (*(src + n1))
     {
-        *(dest + n) = *(src + n);
-        n++;
+        *(dest + n1) = *(src + n1);
+        n1++;
     }
-    *(dest + n) = 0;
+    *(dest + n1) = 0;
     return dest;
 }
 
@@ -29,6 +29,14 @@ char *lc_strcat(char *str1, char *str2)
         *pt++ = *str2++;
     *pt = '\0';
     return str1;
+}
+
+int calc_overlap(int llen, char* left, int rlen, char* right) {
+    int overlap = llen < rlen ? llen : rlen;
+    while (overlap && strncmp(left + llen - overlap, right, (size_t)overlap)) {
+        overlap--;
+    }
+    return overlap;
 }
 
 void gen(char* cur, int cur_len, int used_count)

@@ -20,7 +20,7 @@ void* lc_memcpy( void* dest, const void* src, size_t count )
 void* distributionsort(void* base, size_t n, size_t width, int field, int set,
     int (*get_key)(void* base, int field))
 {
-    int* count = calloc((size_t)set, width);    
+    int* count = calloc((size_t)set, sizeof(int));    
     for (size_t i = 0; i < n; i++)
     {
         int key = get_key((char*)base + width * i, field);
@@ -57,11 +57,12 @@ void* radixsort(void* base, size_t n, size_t width, int* key_set, int set_n,
 int get_key(void* base, int field)
 {
     u_Int32* ptr = base;
-    if (!field)
-        return ptr->bytes[0] ^ 128;
-    return ptr->bytes[3 - field];
+    field = 3 - field;
+    if (field == 3){
+        return (int)(ptr->bytes[field] ^ 0x80);
+    }
+    return ptr->bytes[field];
 }
-
 
 int main()
 {
@@ -72,7 +73,7 @@ int main()
     {
         scanf("%d", &arr[i]);
     }
-    int key_set[4] = {255, 255, 255, 255};
+    int key_set[4] = {256, 256, 256, 256};
     arr = radixsort(arr, n, sizeof(int), key_set, 4, get_key);
     for (size_t i = 0; i < n; i++)
     {

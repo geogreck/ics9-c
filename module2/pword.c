@@ -39,11 +39,14 @@ size_t kmpall(char* s, char* t)
         }
         if (s[q] == t[i])
             q++;
-        if (q == 0)
+        if (q == 0){
+            free(pref);
             return 0;
+        }
         if (q == s_len)
             q = pref[q - 1];
     }
+    free(pref);
     return 1;
 }
 

@@ -17,13 +17,13 @@ typedef struct date {
 void* distributionsort(void* base, size_t n, size_t width, int field, int set,
     int (*get_key)(void* base, int field))
 {
-    int* count = calloc((size_t)set, width);    
+    int* count = calloc((size_t)set, sizeof(int));    
     for (size_t i = 0; i < n; i++)
     {
         int key = get_key((char*)base + width * i, field);
         count[key]++;
     }
-    for (int i = 0; i < set; i++)
+    for (int i = 1; i < set; i++)
     {
         count[i] += count[i - 1];
     }
@@ -54,6 +54,7 @@ void* radixsort(void* base, size_t n, size_t width, int* key_set, int set_n,
 int get_key(void* base, int field)
 {
     t_date* ptr = (t_date*)base;
+    //printf("%04d %02d %02d\n", ptr->Year, ptr->Month, ptr->Day);
     if (field == 0)
         return ptr->Year - 1970;
     if (field == 1)
@@ -70,11 +71,11 @@ int main()
     {
         scanf("%d%d%d", &arr[i].Year, &arr[i].Month, &arr[i].Day);
     }
-    int key_set[3] = {60, 12, 30};
+    int key_set[3] = {61, 12, 31};
     arr = radixsort(arr, n, sizeof(t_date), key_set, 3, get_key);
     for (size_t i = 0; i < n; i++)
     {
-        printf("%d %d %d\n", arr[i].Year, arr[i].Month, arr[i].Day);
+        printf("%04d %02d %02d\n", arr[i].Year, arr[i].Month, arr[i].Day);
     }
     free(arr);
 }

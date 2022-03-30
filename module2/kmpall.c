@@ -43,6 +43,7 @@ size_t kmpall(char* s, char* t, size_t* arr)
         if (q == s_len)
             arr[j++] = i - s_len + 1;
     }
+    free(pref);
     return j;
 }
 
@@ -54,11 +55,12 @@ int main(int argc, char** argv)
     }
     char* s = argv[1];
     char* t = argv[2];
-    size_t* arr = malloc(100 * sizeof(size_t));
+    size_t* arr = malloc(10000 * sizeof(size_t));
     size_t n = kmpall(s, t, arr);
     for (size_t i = 0; i < n; i++)
     {
         printf("%lu ", arr[i]);
     }
+    free(arr);
     return 0;
 }

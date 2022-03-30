@@ -29,7 +29,7 @@ size_t** delta1(char* str, size_t n)
 
 size_t BMSubst(char* s, char* t)
 { 
-    size_t** del1 = delta1(s, 26);
+    size_t** del1 = delta1(s, 123);
     size_t len_s = strlen(s);
     size_t i = 0;
     size_t k = len_s - 1;

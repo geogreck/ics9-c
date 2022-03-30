@@ -22,9 +22,10 @@ void dsort(char* str)
 
 int main()
 {
-    char* s = malloc(1000000 * sizeof(char));
+    char* s = malloc(1000001 * sizeof(char));
     scanf("%s\n", s);
     dsort(s);
     printf("%s\n", s);
+    free(s);
     return 0;
 }

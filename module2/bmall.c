@@ -72,23 +72,22 @@ size_t* delta2(char* str)
     return del2;
 }
 
-size_t BMSubst(char* s, size_t n, char* t, size_t* arr)
+void BMSubst(char* s, size_t n, char* t)
 {
     size_t* del1 = delta1(s, n);
     size_t* del2 = delta2(s);
     size_t s_len = strlen(s);
-    size_t t_len = strlen(t);
-    size_t j = 0;
+    size_t t_len = strlen(t);   
     size_t k = s_len - 1;
     while (k < t_len)
     {
         size_t i = s_len - 1;
         while (t[k] == s[i])
         {
-            if (!i)
+            if (i == 0)
             {
-                arr[j++] = k;
-                i = 1;
+                printf("%lu ", k);
+                break;
             }
             i--;
             k--;
@@ -97,7 +96,6 @@ size_t BMSubst(char* s, size_t n, char* t, size_t* arr)
     }
     free(del1);
     free(del2);
-    return j;
 }
 
 int main(int argc, char** argv)
@@ -108,13 +106,6 @@ int main(int argc, char** argv)
     }
     char* s = argv[1];
     char* t = argv[2];
-    size_t* arr = malloc(100 * sizeof(size_t));
-    size_t n = BMSubst(s, 26, t, arr);
-    printf("%lu\n", n);
-    for (size_t i = 0; i < n; i++)
-    {
-        printf("%lu ", arr[i]);
-    }
-    free(arr);
+    BMSubst(s, 123, t);
     return 0;
 }
