@@ -9,6 +9,10 @@ int my_less(unsigned long i, unsigned long j)
 
 unsigned long peak(unsigned long nel, int (*less)(unsigned long i, unsigned long j))
 {
+    if (nel == 1)
+    {
+        return 0;
+    }
     if (less(1, 0))
     {
         return 0;

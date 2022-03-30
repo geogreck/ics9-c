@@ -3,13 +3,20 @@
 #include <stdlib.h>
 #include <math.h>
 
-int primediv(int x)
+ unsigned int root(unsigned int a)
 {
-    int* m = calloc((size_t)x, sizeof(int));
-    size_t i = 2;
+   unsigned int x;
+   x = (a/0x3f + 0x3f)>>1;
+   x = (a/x + x)>>1;
+   x = (a/x + x)>>1;
+   return(x); 
+}
 
-    while (i < sqrt(x))
-    {
+long primediv(long x)
+{
+    int* m = calloc((size_t)x + 1, sizeof(int));
+    size_t i = 2;
+    while (i < root(x)){
         if (!m[i])
         {
             for (size_t j = i * i; j <= (size_t)x; j += i)
@@ -22,7 +29,7 @@ int primediv(int x)
 
     for (i = (size_t)x - 1; i > 0; i--)
     {
-        if (!m[i])
+        if (!m[i] && !(x % i))
         {
             free(m);
             return (int)i;
@@ -35,11 +42,13 @@ int primediv(int x)
 
 int main()
 {
-    int x, div;
-    scanf("%d", &x);
-
+    long x, div;
+    scanf("%ld", &x);
+    if (x < 0){
+        x = -1 * x;
+    }
+    printf("%ld\n", x);
     div = primediv(x);
-
-    printf("%d\n", div);
+    printf("%ld\n", div);
     return 0;
 }
